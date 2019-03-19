@@ -1,11 +1,37 @@
+// {
+//   "presets": [
+//   "latest",
+//   "react",
+//   "stage-0"
+//   ],
+//   "plugins": [
+//     ["import", { "libraryName": "antd", "libraryDirectory": "lib"}, "ant"],
+//     ["import", { "libraryName": "ant-mobile", "libraryDirectory": "lib"}, "ant-mobile"]
+//   ]
+// }
 {
   "presets": [
-  "latest",
-  "react",
-  "stage-0"
+    "latest",
+    "react",
+    "stage-0",
+    [
+      "@babel/preset-env", {
+        "targets": "last 2 versions"
+      }
+    ],
+    "@babel/preset-react"
   ],
-  // "plugins": [
-  //   ["import", { "libraryName": "antd", "libraryDirectory": "lib"}, "ant"],
-  //   ["import", { "libraryName": "ant-mobile", "libraryDirectory": "lib"}, "ant-mobile"]
-  // ]
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "helpers": false,
+        "regenerator": true
+      }
+    ],
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-syntax-dynamic-import",
+    ["import", { "libraryName": "antd", "style": true }]
+  ]
 }

@@ -25,55 +25,70 @@ module.exports = {
       {
         test: /\.js|jsx$/,
         exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader'
-        }
+        use: { loader: 'babel-loader' }
       },
       {
         test: /\.less$/,
+        exclude: /(node_modules)/,
         use: [
-          { loader: 'style-loader' },
           {
             loader: MiniCssExtractPlugin.loader
           },
           {
-            loader: 'css-loader' // translates CSS into CommonJS
+            loader: 'css-loader', // translates CSS into CommonJS
+            options: {
+              modules: true,
+              localIdentName: '[path][name]__[local]'
+            }
           }, {
             loader: 'less-loader' // compiles Less to CSS
           }]
       },
       {
+        test: /\.less$/,
+        include: /(node_modules)/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: 'css-loader' // translates CSS into CommonJS
+          },{
+            loader: 'less-loader', // compiles Less to CSS
+            options: {
+              javascriptEnabled: true
+            }
+          }
+        ]
+      },
+      {
         test: /\.scss$/,
-        use: [{
-          loader: 'style-loader' // 将 JS 字符串生成为 style 节点
-        }, {
-          loader: 'css-loader' // 将 CSS 转化成 CommonJS 模块
-        }, {
-          loader: 'sass-loader' // 将 Sass 编译成 CSS
-        }]
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: 'css-loader' // 将 CSS 转化成 CommonJS 模块
+          },
+          {
+            loader: 'sass-loader' // 将 Sass 编译成 CSS
+          }]
       },
       {   //使用css配置
         test: /\.css$/,
-        loader: 'style-loader!css-loader',
-        options: {
-          modules: true,
-          // localIdentName: '[local]'
-        }
-      },
-      // {
-      //     test: /\.(png|jpg|gif)$/,
-      //     use: [
-      //       {
-      //         loader: 'file-loader',
-      //         options: {
-      //             //编译出来是项目中对应图片文件夹的文件目录
-      //             // name: 'images/[path][name].[ext]'  
-      //             name: 'images/[hash].[ext]',//所有图片在一个目录
-      //         }
-      //       }
-      //     ]
-      //   }
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: 'css-loader', // 将 CSS 转化成 CommonJS 模块
+            options: {
+              modules: true,
+              // localIdentName: '[local]'
+            }
+          }]
 
+      },
       {
         test: /\.(png|jpg|gif)$/,
         use: [
