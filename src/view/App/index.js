@@ -18,9 +18,9 @@ class App extends React.Component {
           <Layout>
             <Header>
               <nav className={styles['nav-bar']}>
-                <NavLink to='/' exact activeClassName={styles['nav-—selected']} >首页</NavLink>
-                <NavLink to='/demo1' activeClassName={styles['nav-—selected']}>练习1</NavLink>
-                <NavLink to='/demo2' activeClassName={styles['nav-—selected']}>练习2</NavLink>
+                <NavLink to='/' exact activeClassName={styles['nav--selected']} >首页</NavLink>
+                <NavLink to='/demo1' activeClassName={styles['nav--selected']}>练习1</NavLink>
+                <NavLink to='/demo2' activeClassName={styles['nav--selected']}>练习2</NavLink>
               </nav>
             </Header>
             <Content>
@@ -29,7 +29,7 @@ class App extends React.Component {
               </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>
-              REACT-DEMO ©2018 Created by Kyls丶yw
+              React-Demo ©2019 Created By Kyls丶yw
             </Footer>
           </Layout>
         </BrowserRouter>

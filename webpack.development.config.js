@@ -18,18 +18,18 @@ module.exports = {
   devServer: {
     host: 'localhost',
     port: 8080,
-    compress: true
+    // compress: true
   },
   module: {
     rules: [
       {
         test: /\.js|jsx$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /node_modules/,
         use: { loader: 'babel-loader' }
       },
       {
         test: /\.less$/,
-        exclude: /(node_modules)/,
+        exclude: /node_modules/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader
@@ -38,11 +38,12 @@ module.exports = {
             loader: 'css-loader', // translates CSS into CommonJS
             options: {
               modules: true,
-              localIdentName: '[path][name]__[local]'
+              localIdentName: '[path]less__[local]'
             }
           }, {
             loader: 'less-loader' // compiles Less to CSS
-          }]
+          }
+        ]
       },
       {
         test: /\.less$/,
@@ -82,12 +83,8 @@ module.exports = {
           },
           {
             loader: 'css-loader', // 将 CSS 转化成 CommonJS 模块
-            options: {
-              modules: true,
-              // localIdentName: '[local]'
-            }
-          }]
-
+          }
+        ]
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -118,24 +115,18 @@ module.exports = {
     }
   },
   devtool: 'cheap-source-map',
+  resolve:{
+    alias:{
+      util: './src/util'
+    }
+  },
   plugins: [
-    new webpack.DefinePlugin({//设置成production去除警告
-      'process.env':{
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './index.html',
       inject: 'body' 
     }),
-    new CleanWebpackPlugin(['dist',
-      'build'], {
-      root:__dirname,
-      verbose: true,
-      dry: false,
-      exclude: ['jslibs']
-    }),
+    new CleanWebpackPlugin(['dist']),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
